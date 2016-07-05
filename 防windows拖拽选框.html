@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<style type="text/css">
+		div {
+			position: absolute;
+		}
+	</style>
+</head>
+<body>
+</body>
+<script type="text/javascript" src="jquery-1.12.4.min.js"></script>
+<script type="text/javascript">
+	$(function (){
+		$(document).on('mousedown',function (ev){
+			var div = document.createElement('div');
+			document.body.appendChild(div);
+			var X = ev.pageX;
+			var Y = ev.pageY;
+			
+			$(document).on('mousemove',fnMove)
+			
+			$(document).on('mouseup',function (){
+				$(document).off('mousemove',fnMove);
+				return false;
+			})
+			
+			function fnMove(ev){		
+				var iW = Math.abs(ev.pageX - X);
+				var iH = Math.abs(ev.pageY - Y);
+				
+				var left = Math.min(X, ev.pageX);
+				var top = Math.min(Y, ev.pageY);
+				$(div).css({
+					'left':left,
+					'top':top,
+					'width':iW,
+					'height':iH,
+					'background':'rgba(255,0,255,.5)'
+				})
+			}
+			
+			return false;
+		})
+	})
+</script>
+</html>

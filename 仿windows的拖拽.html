@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+<style type="text/css">
+.newSec{
+	width:100px;
+	height: 100px;
+	background: greenyellow;
+	position: absolute;
+	top:0;
+	left:0;
+	opacity: .5;
+}
+</style>
+</head>
+<body>
+	<section id="secElement" style="width:100px;height: 100px;background: red;position: absolute;top:0;left:0;"></section>
+<script type="text/javascript">
+	var secElement = document.getElementById('secElement');
+	
+	secElement.addEventListener('mousedown',fnDown);
+	var L = 0;
+	var T = 0;
+	function fnDown(ev){
+		var disX = ev.pageX - L;
+		var disY = ev.pageY - T;
+		var createSe = document.createElement('section');
+		createSe.className = 'newSec';
+		createSe.style.left = L + 'px';
+		createSe.style.top = T + 'px';
+		document.body.appendChild(createSe);
+		document.addEventListener('mousemove',fnMove);
+		document.addEventListener('mouseup',fnUp);
+		
+
+		function fnMove(ev){
+			createSe.style.left = ev.pageX - disX + 'px';
+			createSe.style.top = ev.pageY - disY + 'px';
+			
+			L = ev.pageX - disX;
+			T = ev.pageY - disY;
+		}
+		
+		function fnUp(){
+			document.body.removeChild(createSe);
+			secElement.style.left = L + 'px';
+			secElement.style.top = T + 'px';
+			document.removeEventListener('mousemove',fnMove);
+			document.removeEventListener('mouseup',fnUp);
+		}
+		ev.preventDefault();
+	}
+	
+	
+</script>
+</body>
+</html>
